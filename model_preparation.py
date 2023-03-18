@@ -29,6 +29,12 @@ df['driver_age'] = df['driver_age'].fillna(df['driver_age_raw'] - df['stop_datet
 # print("Tipet e te dhenave")
 # print(df.dtypes)
 
+print("Numri i duplikateve:")
+print(df.duplicated().sum())# numri i duplikateve
+
+df=df.drop_duplicates()
+
+
 print("Te dhenat pas preprocesimit")
 print(df.info())
 # print(df.isna().sum())
