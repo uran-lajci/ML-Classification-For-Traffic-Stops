@@ -1,6 +1,6 @@
 # Policing-ML-Model
 
-> Ne kete projekt ne kemi perdorur nje dataset te huazuar nga Kaggle ne linkun ne vijim: [Stanford Open Policing Project](https://www.genome.gov/) .
+> Ne kete projekt ne kemi perdorur nje dataset te huazuar nga Kaggle ne linkun ne vijim: [Stanford Open Policing Project](https://www.kaggle.com/datasets/faressayah/stanford-open-policing-project).
 I cili i permban keto kolona:
 ```jupiter
 - stop_date
@@ -19,7 +19,7 @@ I cili i permban keto kolona:
 - stop_duration
 - drugs_related_stop
 ```
-> Ne do te zhvillojme nje parashikim se a do te arrestohet nje person os jo ne baze te te dhenave te tij.
+> Ne do te zhvillojme nje parashikim se: a do te arrestohet nje person a jo dhe cka do te jete rezultati i ndaleses ne baze te dhenave te tij.
 >> Per arritjen e parashikimit te target vleres tone do te perdorim klasifikimin.
 
 ***Algoritmet e klasifikimit qe pretendojm qe ti perdorim qe te gjejme se cili na pershtatet dhe na rezulton me rezultate me te mira jane:***
