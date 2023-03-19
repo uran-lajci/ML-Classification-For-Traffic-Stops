@@ -16,14 +16,19 @@ print("The number of null values in columns")
 print(df.isna().sum())
 
 # We delete the county_name column from the dataset since all the values of this column are missing
-df = df.drop(['county_name'], axis=1)
+df = df.drop(['county_name','search_type'], axis=1)
 
 # The search_type column has 88545 missing values from 91741 rows in total, but its data can be useful in our work during the analysis and prediction,
 # so we replace its missing values with Unknown and do not change the not missing values.
-df['search_type'] = df['search_type'].fillna('Unknown')
+#df['search_type'] = df['search_type'].fillna('Unknown')
 
 # The rows with missing values in all these columns should be deleted because they do not contain enough information to make a prediction
 df = df.dropna(subset=['driver_gender', 'driver_age_raw', 'driver_race', 'violation_raw', 'violation', 'stop_outcome', 'is_arrested', 'stop_duration'])
+
+#Droping records that ar not appropriate
+df = df.drop( df.index[df['stop_duration'].isin(['1', '2'])])
+
+
 
 # We combine the date and time in one column and make their type datetime
 df['stop_datetime'] = pd.to_datetime(df['stop_date'] + ' ' + df['stop_time'])
@@ -73,7 +78,7 @@ print(df.isna().sum())
 # Select features to be used in prediction based on intuition
 columns_to_be_used_in_prediction = [
     'driver_gender', 'driver_race', 'violation', 'search_conducted',
-    'search_type', 'stop_outcome', 'is_arrested', 'stop_duration',
+    'stop_outcome', 'is_arrested', 'stop_duration',
     'drugs_related_stop', 'stop_datetime', 'age_group'
 ]
 
