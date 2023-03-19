@@ -1,3 +1,0 @@
- - search type duhet me e kqyr qysh me e nda, sepse i ka shume arsye me nje kolone te vendosuna e te ndame me presje(',')
- - duhet me kqyr te stop_duration pse i ka 2 rreshta me (1 e 2), dhe me vendos a me i fshi ato 2 rreshta
- - te shikohen edhe kto datasetet tjera nga shtetet tjera te USA https://www.kaggle.com/datasets/stanford-open-policing/stanford-open-policing-project-north-carolina?select=NC.csv
