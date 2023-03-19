@@ -1,5 +1,15 @@
 # Policing-ML-Model
 
+#### Per te ekzekutuar kete paze te projektit fillimisht duhet te instaloni librarine pandas dhe numpy duke shkruar ne terminal:
+```python
+pip install pandas
+pip install numpy
+```
+#### dhe me pas te shkruani ne terminal komanden:
+```python
+python model_preparation.py
+```
+
 > Ne kete projekt ne kemi perdorur nje dataset te huazuar nga Kaggle ne linkun ne vijim: [Stanford Open Policing Project](https://www.kaggle.com/datasets/faressayah/stanford-open-policing-project).
 I cili i permban keto kolona:
 ```jupiter
