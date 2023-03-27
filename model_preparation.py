@@ -28,15 +28,13 @@ df = df.dropna(subset=['driver_gender', 'driver_age_raw', 'driver_race', 'violat
 #Droping records that ar not appropriate
 df = df.drop( df.index[df['stop_duration'].isin(['1', '2'])])
 
-
-
 # We combine the date and time in one column and make their type datetime
 df['stop_datetime'] = pd.to_datetime(df['stop_date'] + ' ' + df['stop_time'])
 
 # Since we have the stop date and stop time in the new column stop_datetime we do not need stop_date and stop_time so we delete them
 df = df.drop(['stop_date', 'stop_time'], axis=1)
 
-# Removing anomaly years in driver age raw
+# Replacing anomaly years in driver age raw
 valid_years = df[(df['driver_age_raw'] >= 1900) & (df['driver_age_raw'] <= df['stop_datetime'].dt.year.max())]
 mean_year = int(np.mean(valid_years['driver_age_raw']))
 df.loc[(df['driver_age_raw'] < 1900) | (df['driver_age_raw'] > df['stop_datetime'].dt.year.max()), 'driver_age_raw'] = mean_year
