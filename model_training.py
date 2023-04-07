@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -12,6 +11,12 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import roc_curve, roc_auc_score
+import matplotlib.pyplot as plt
+import numpy as np
+
+from sklearn.preprocessing import LabelEncoder
+
 
 df = pd.read_csv("preprocessed_police_project.csv")
 
@@ -94,3 +99,28 @@ scores = cross_val_score(model, X, y, cv=5)
 
 # Print the average accuracy and standard deviation across folds
 print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+
+
+
+
+
+
+# Convert categorical labels to binary labels
+le = LabelEncoder()
+y_test = le.fit_transform(y_test)
+
+# Get the predicted probabilities
+y_score = model.predict_proba(X_test)[:, 1]
+
+# Compute the ROC curve and AUC score
+fpr, tpr, thresholds = roc_curve(y_test, y_score)
+auc_score = roc_auc_score(y_test, y_score)
+
+# Plot the ROC curve
+plt.plot(fpr, tpr, label=f'AUC = {auc_score:.2f}')
+plt.plot([0, 1], [0, 1], linestyle='--', color='r', label='Random')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend()
+plt.show()
