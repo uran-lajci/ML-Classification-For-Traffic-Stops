@@ -1,119 +1,88 @@
-import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import roc_curve, roc_auc_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
-from sklearn.model_selection import cross_val_score
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import roc_curve, roc_auc_score
+
 import matplotlib.pyplot as plt
+import pandas as pd
 import numpy as np
 
-from sklearn.preprocessing import LabelEncoder
-
-
+# Read the CSV file
 df = pd.read_csv("preprocessed_police_project.csv")
 
+# Get the number of rows to use for test and train
 number_of_rows_to_use_for_test_and_train = int(input(f"Write the number of rows you want to use from {len(df)} that are in the dataset: "))
-df = df[0:number_of_rows_to_use_for_test_and_train]
+df = df.iloc[0:number_of_rows_to_use_for_test_and_train]
 
-attribute_to_be_predicted = str(input("Chose wich attribute you want to predict from these attributes: stop_outcome, driver_gender, age_group, is_arrested or violation\nAttribute to be predicted: "))
+# Define a dictionary that maps each attribute to its corresponding features
+attribute_to_features = {
+    "stop_outcome": ['driver_gender', 'driver_race', 'violation', 'search_conducted', 'is_arrested', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
+    "is_arrested": ['driver_gender', 'driver_race', 'violation', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
+    "driver_gender": ['violation','is_arrested', 'search_conducted', 'stop_duration', 'drugs_related_stop', 'age_group'],
+    "age_group": ['driver_gender','driver_race', 'violation','is_arrested', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop'],
+    "violation": ['driver_gender','driver_race', 'search_conducted', 'stop_outcome','drugs_related_stop', 'age_group']
+}
 
-if attribute_to_be_predicted == "stop_outcome":
-    # Extract the features and target variable
-    X = df[['driver_gender', 'driver_race', 'violation', 'search_conducted',
-                'is_arrested', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group']]
-    y = df['stop_outcome']
+# Get the attribute to be predicted
+attribute_to_be_predicted = input("Choose which attribute you want to predict from these attributes: stop_outcome, driver_gender, age_group, is_arrested or violation\nAttribute to be predicted: ")
 
-    # Encode categorical variables as numbers
-    X = pd.get_dummies(X, columns=['driver_gender', 'driver_race', 'violation', 'is_arrested', 'stop_duration', 'stop_datetime', 'age_group'])
-elif attribute_to_be_predicted == "is_arrested":
-    # Extract the features and target variable
-    X = df[['driver_gender', 'driver_race', 'violation', 'search_conducted',
-                'stop_outcome', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group']]
-    y = df['is_arrested']
-
-    # Encode categorical variables as numbers
-    X = pd.get_dummies(X, columns=['driver_gender', 'driver_race', 'violation', 'stop_outcome', 'stop_duration', 'stop_datetime', 'age_group'])
-elif attribute_to_be_predicted == "driver_gender":
-    # Extract the features and target variable
-    X = df[['violation','is_arrested', 'search_conducted',
-                 'stop_duration', 'drugs_related_stop',  'age_group']]
-    y = df['driver_gender']
-
-    # Encode categorical variables as numbers
-    X = pd.get_dummies(X, columns=['violation','is_arrested',  'stop_duration',  'age_group'])
-
-elif attribute_to_be_predicted == "age_group":
-    # Extract the features and target variable
-    X = df[[ 'driver_gender','driver_race', 'violation','is_arrested', 'search_conducted',
-                'stop_outcome', 'stop_duration', 'drugs_related_stop', ]]
-    y = df['age_group']
-
-    # Encode categorical variables as numbers
-    X = pd.get_dummies(X, columns=[ 'driver_gender','driver_race', 'violation','is_arrested', 'stop_outcome', 'stop_duration'])
-elif attribute_to_be_predicted == "violation":
-    # Extract the features and target variable
-    X = df[[ 'driver_gender','driver_race', 'search_conducted',
-                'stop_outcome','drugs_related_stop', 'age_group' ]]
-    y = df['violation']
-
-    # Encode categorical variables as numbers
-    X = pd.get_dummies(X, columns=[ 'driver_gender','driver_race', 'stop_outcome','age_group'])
+# Check if the input is valid and extract the features and target variable
+if attribute_to_be_predicted in attribute_to_features:
+    X = df[attribute_to_features[attribute_to_be_predicted]]
+    X = pd.get_dummies(X, columns=X.columns)
+    y = df[attribute_to_be_predicted]
 else:
     print(f"Error. Wrong input {attribute_to_be_predicted}")
 
-
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
 
-training_model = str(input("""Write LR for Logistic Regression,
-      DTC for Decision Tree Classifier,
-      RFC for Random Forest Classifier,
-      NB for Gaussian Naive Bayes,
-      KNN for KNeighbors Classifier
-      Model: """))
+# Ask user to choose the model to train
+training_model = input("Choose the model to train (LR, DTC, RFC, NB, KNN): ")
 
-#Initialize the model
-if training_model == "LR":
-    model = LogisticRegression(solver='newton-cg')
-elif training_model == "DTC":
-    model = DecisionTreeClassifier()
-elif training_model == "RFC":
-    model = RandomForestClassifier()
-elif training_model == "NB":
-    model = GaussianNB()
-elif training_model == "KNN":
-    model = KNeighborsClassifier()
-else:
+# Initialize the model
+models = {"LR": LogisticRegression(solver='newton-cg'),
+          "DTC": DecisionTreeClassifier(),
+          "RFC": RandomForestClassifier(),
+          "NB": GaussianNB(),
+          "KNN": KNeighborsClassifier()}
+
+model = models.get(training_model)
+
+if model is None:
     print(f"Error. Wrong input {training_model}")
 
+# Train the model
 model.fit(X_train, y_train)
 
+# Predict using the trained model and calculate accuracy
 y_pred = model.predict(X_test)
-accuracy = round(accuracy_score(y_test, y_pred)*100,2)
-print("MODEL : %f" %accuracy)
+accuracy = round(accuracy_score(y_test, y_pred) * 100, 2)
+
+# Print the accuracy, confusion matrix and classification report of the model
+print(f"MODEL : {accuracy}")
+print("Confusion Matrix")
 print(confusion_matrix(y_test, y_pred))
 print('================')
 print(classification_report(y_test, y_pred))
 print('====================================================')
 print('====================================================')
+
+# Use cross-validation to evaluate the model
 scores = cross_val_score(model, X, y, cv=5)
 
 # Print the average accuracy and standard deviation across folds
-print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+print(f"Accuracy: {scores.mean():.2f} (+/- {scores.std()*2:.2f})")
 
-
-
-
-if(attribute_to_be_predicted=='driver_gender' or attribute_to_be_predicted=='is_arrested'):
-
+if (attribute_to_be_predicted == 'driver_gender' or attribute_to_be_predicted == 'is_arrested'):
     # Convert categorical labels to binary labels
     le = LabelEncoder()
     y_test = le.fit_transform(y_test)
