@@ -20,7 +20,11 @@ df = pd.read_csv("preprocessed_police_project.csv")
 
 # Get the number of rows to use for test and train
 number_of_rows_to_use_for_test_and_train = int(input(f"Write the number of rows you want to use from {len(df)} that are in the dataset: "))
-df = df.iloc[0:number_of_rows_to_use_for_test_and_train]
+rows_randomly_selected = input(f"Write y if you want to randomly select rows: ")
+if rows_randomly_selected == "y":
+    df  = df.sample(number_of_rows_to_use_for_test_and_train)
+else:
+    df = df.iloc[0:number_of_rows_to_use_for_test_and_train]
 
 # Define a dictionary that maps each attribute to its corresponding features
 attribute_to_features = {
