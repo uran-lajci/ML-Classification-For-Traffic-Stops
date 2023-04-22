@@ -95,6 +95,7 @@ Accuracy: 0.73 (+/- 0.01)
 
 #### P.S. Nese kemi zgjedhur is_arrested ose driver_gender, ne fund na paraqitet edhe vizualizimi i ROC Curve:
 
+![image](https://user-images.githubusercontent.com/58117020/233801053-fb08ab7a-e48c-4e67-99d6-fdf99491554d.png)
 
 
 
