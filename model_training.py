@@ -14,6 +14,8 @@ from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import warnings
+warnings.filterwarnings("ignore")
 
 # Read the CSV file
 df = pd.read_csv("preprocessed_police_project.csv")
@@ -28,10 +30,10 @@ else:
 
 # Define a dictionary that maps each attribute to its corresponding features
 attribute_to_features = {
-    "stop_outcome": ['driver_gender', 'driver_race', 'violation', 'search_conducted', 'is_arrested', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
+    "stop_outcome": ['violation', 'search_conducted', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
     "is_arrested": ['driver_gender', 'driver_race', 'violation', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
     "driver_gender": ['violation','is_arrested', 'search_conducted', 'stop_duration', 'drugs_related_stop', 'age_group'],
-    "age_group": ['driver_gender','driver_race', 'violation','is_arrested', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop'],
+    "age_group": ['driver_gender', 'violation', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop'],
     "violation": ['driver_gender','driver_race', 'search_conducted', 'stop_outcome','drugs_related_stop', 'age_group']
 }
 
