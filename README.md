@@ -97,5 +97,10 @@ Accuracy: 0.73 (+/- 0.01)
 
 ![image](https://user-images.githubusercontent.com/58117020/233801053-fb08ab7a-e48c-4e67-99d6-fdf99491554d.png)
 
+# Testimet
 
+![image](https://user-images.githubusercontent.com/117693854/233863104-35fc3665-e94d-4537-b81c-d3e2c7292a8c.png)
 
+![image](https://user-images.githubusercontent.com/117693854/233863136-938a4b67-c76c-4147-a976-d7df1f1a7239.png)
+
+![image](https://user-images.githubusercontent.com/117693854/233863153-286e88e9-9324-4645-8124-5c9c99ec3775.png)
