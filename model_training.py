@@ -72,28 +72,6 @@ model.fit(X_train, y_train)
 # Predict using the trained model and calculate accuracy
 y_pred = model.predict(X_test)
 accuracy = round(accuracy_score(y_test, y_pred) * 100, 2)
-print('============================================')
-print('============================================')
-
-print('See if we have underfitting or overfitting ')
-
-# Predict using the trained model and calculate accuracy
-y_train_pred = model.predict(X_train)
-train_accuracy = round(accuracy_score(y_train, y_train_pred) * 100, 2)
-
-y_test_pred = model.predict(X_test)
-test_accuracy = round(accuracy_score(y_test, y_test_pred) * 100, 2)
-
-print(f"Training Accuracy: {train_accuracy}")
-print(f"Testing Accuracy: {test_accuracy}")
-
-# Use cross-validation to evaluate the model
-cv_scores = cross_val_score(model, X, y, cv=5)
-cv_accuracy = round(cv_scores.mean() * 100, 2)
-cv_std = round(cv_scores.std() * 100, 2)
-
-print(f"Cross-validation Accuracy: {cv_accuracy} (+/- {cv_std})")
-print('============================================')
 
 # Print the accuracy, confusion matrix and classification report of the model
 print(f"MODEL : {accuracy}")
