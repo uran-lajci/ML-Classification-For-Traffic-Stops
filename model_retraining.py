@@ -58,7 +58,8 @@ training_model = input("Choose the model to train (LR, DTC, RFC, NB, KNN): ")
 models = {"LR": LogisticRegression(solver='newton-cg'),
           "DTC": DecisionTreeClassifier(),
           "RFC": RandomForestClassifier(),
-          "NB": GaussianNB(),
+#          "NB": GaussianNB(),
+          "NB": GaussianNB(var_smoothing=1e-3),
           "KNN": KNeighborsClassifier()}
 
 model = models.get(training_model)
