@@ -18,7 +18,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Read the CSV file
-df = pd.read_csv("preprocessed_police_project.csv")
+df = pd.read_csv("./datasets/training/preprocessed_police.csv")
 
 # Get the number of rows to use for test and train
 number_of_rows_to_use_for_test_and_train = int(input(f"Write the number of rows you want to use from {len(df)} that are in the dataset: "))
