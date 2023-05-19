@@ -4,7 +4,7 @@ import numpy as np
 # Predicting whether a person will be arrested and te outcome of the stop based on their data
 # Phase 1 - Model preparation
 
-df = pd.read_csv('police_project.csv')
+df = pd.read_csv('./datasets/training/initial_police_dataset.csv')
 
 print("Dataset information before preprocessing\n")
 print("General information")
@@ -86,4 +86,4 @@ new_dataset = df[columns_to_be_used_in_prediction]
 print(new_dataset.head())
 
 # Save the preprocessed dataset to a new CSV file
-new_dataset.to_csv('preprocessed_police_project.csv', index=False)
+# new_dataset.to_csv('preprocessed_police_project.csv', index=False)
