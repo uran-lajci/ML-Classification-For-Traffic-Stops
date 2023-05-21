@@ -22,7 +22,9 @@ warnings.filterwarnings("ignore")
 #df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_winston.csv")
 #df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_raleigh.csv")
 df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_durham.csv")
+df.dropna(subset=['age_group'], inplace=True)
 
+#print(df.info())
 # Get the number of rows to use for test and train
 number_of_rows_to_use_for_test_and_train = int(input(f"Write the number of rows you want to use from {len(df)} that are in the dataset: "))
 rows_randomly_selected = input(f"Write y if you want to randomly select rows: ")
@@ -50,7 +52,7 @@ else:
     print(f"Error. Wrong input {attribute_to_be_predicted}")
 
 # Split the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
 
 # Ask user to choose the model to train
 training_model = input("Choose the model to train (LR, DTC, RFC, NB, KNN): ")
