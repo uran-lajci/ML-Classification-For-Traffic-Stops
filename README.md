@@ -148,4 +148,6 @@ KNN tregon saktësi pak më të ulët se algoritmet e tjera, duke filluar nga 99
 
 ![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/1dd80085-07b1-47ff-a97a-9446a5153741)
 
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/58117020/2ad87a9a-cc57-40ee-87fd-6e8f1ed05564)
+
 
