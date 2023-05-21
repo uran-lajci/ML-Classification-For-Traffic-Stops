@@ -119,3 +119,33 @@ Accuracy: 0.73 (+/- 0.01)
 #### Kemi kontrolluar gjithashtu nese kemi underfitting apo overfitting ne te dhenat tona, keshtu duke shikuar saktesine e te dhenave testuese dhe atyre trajnuese.
 
 ### Ne vazhdim mund te shohim rezultatet qe kemi arritur te ekzekutojme:
+Keto tabela tregojn performancën e modeleve të ndryshme të ML në tre grupe të dhënash: NC Durham, NC Winston dhe një grup të dhënash fillestare. Çdo grup të dhënash po përdoret për të parashikuar driver_gender.
+
+Algoritmet e ML të testuara përfshijnë Regresionin Logjistik (LR), Klasifikuesin e Pemës së Vendimit (DTC), Klasifikuesin e Rastit të Pyjeve (RFC), Naive Bayes (NB) dhe K-Fqinjët më të afërt (KNN). Për secilin algoritëm, u testuan tre ndarje të të dhënave: 0.2, 0.3 dhe 0.35. Këto ndarje ka të ngjarë të përfaqësojnë raportin e grupit të të dhënave që është përdorur për testim (me pjesën e mbetur të përdorur për trajnim).
+
+Le të shohim disa gjetje specifike nga tabela:
+* LR, Klasifikuesi i Pemës së Vendimit (DTC) dhe Klasifikuesi i Pyjeve të Rastit (RFC) tregojnë performancë të ngjashme në çdo grup të dhënash me një ndryshim të vogël midis ndarjeve të të dhënave. Performanca është më e lartë në grupin e të dhënave fillestare, më e ulët në NC Durham dhe më e ulët në NC Winston.
+* NB në përgjithësi performoi më keq se algoritmet e tjera në të tre grupet e të dhënave. Kjo mund të jetë për shkak të karakteristikave specifike të të dhënave që nuk përputhen mirë me supozimet e Naive Bayes, ose për shkak të nevojës për akordim hiperparametër.
+* KNN tregon më shumë variacione midis grupeve të të dhënave sesa algoritmet e tjera. Ai performon më keq në NC Winston sesa në dy grupet e tjera të të dhënave, por performanca në grupin e të dhënave fillestare rritet ndjeshëm ndërsa madhësia e ndarjes së testit rritet, duke arritur kulmin e saj në ndarjen 0.35.
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/a99db8ce-c0cb-4432-a0c3-879aa428ee93)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/31871d92-fcf8-43be-b1ec-86db76c83957)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/0c5ced7f-98d4-4b1f-a0eb-7a00c75be602)
+
+LR, DTC, RFC dhe NB po tregojnë saktësi të përsosur prej 100% në të gjitha grupet e të dhënave dhe me të gjitha ndarjet. Kjo është mjaft e pazakontë dhe mund të tregojë disa gjëra: detyra mund të jetë shumë e thjeshtë dhe lehtësisht e parashikueshme, mund të ketë një rrjedhje të të dhënave nga grupi i trajnimit në grupin e testimit, ose modelet mund të jenë tepër të përshtatura në të dhënat e trajnimit.
+
+KNN tregon saktësi pak më të ulët se algoritmet e tjera, duke filluar nga 99,75% në 99,88% në varësi të grupit të të dhënave dhe ndarjes. Pavarësisht se janë më të ulëta se 100%, këto janë ende rezultate saktësie shumë të larta dhe në përgjithësi do të konsideroheshin të shkëlqyera në një skenar të botës reale.
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/361045ad-501a-4fbc-9a46-a00000b04b70)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/571f45ed-8267-43e7-ace0-9decd91961a1)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/4e4638f7-fcf1-44eb-ace6-c8efa57c9117)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/499c70d1-846b-4dbb-be98-29a7a26d3e9f)
+
+![image](https://github.com/uran-lajci/Policing-ML-Model/assets/117693854/1dd80085-07b1-47ff-a97a-9446a5153741)
+
+
