@@ -40,6 +40,12 @@ def clean_and_select_features(file_path):
     df['search_conducted'] = df['search_conducted'].astype(bool)
     df['arrest'] = df['arrest'].astype(bool)
 
+    bins = [14, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+    # Define the labels for age groups
+    labels = ['14-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80', '81-90', '91-100']
+    # Create a new column 'age_group' with the age group labels
+    df['age_group'] = pd.cut(df['age'], bins=bins, labels=labels)
+
     for col in ['race', 'sex', 'outcome']:
         df[col] = df[col].astype('category')
 

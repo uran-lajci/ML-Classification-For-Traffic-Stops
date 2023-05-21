@@ -18,7 +18,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # Read the CSV file
-df = pd.read_csv("./datasets/training/preprocessed_police.csv")
+#df = pd.read_csv("./datasets/training/preprocessed_police.csv")
+#df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_winston.csv")
+#df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_raleigh.csv")
+df = pd.read_csv("./datasets/retraining/preprocessed/preprocessed_nc_durham.csv")
 
 # Get the number of rows to use for test and train
 number_of_rows_to_use_for_test_and_train = int(input(f"Write the number of rows you want to use from {len(df)} that are in the dataset: "))
@@ -30,15 +33,13 @@ else:
 
 # Define a dictionary that maps each attribute to its corresponding features
 attribute_to_features = {
-    "stop_outcome": ['violation', 'search_conducted', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
-    "is_arrested": ['driver_gender', 'driver_race', 'violation', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop', 'stop_datetime', 'age_group'],
-    "driver_gender": ['violation','is_arrested', 'search_conducted', 'stop_duration', 'drugs_related_stop', 'age_group'],
-    "age_group": ['driver_gender', 'violation', 'search_conducted', 'stop_outcome', 'stop_duration', 'drugs_related_stop'],
-    "violation": ['driver_gender','driver_race', 'search_conducted', 'stop_outcome','drugs_related_stop', 'age_group']
+    "is_arrested": ["driver_race","driver_gender","search_conducted","stop_outcome","age_group"],
+    "driver_gender": ["driver_race","is_arrested","search_conducted","stop_outcome","age_group"],
+    "age_group": ["driver_race","driver_gender","search_conducted","stop_outcome","is_arrested"],
 }
 
 # Get the attribute to be predicted
-attribute_to_be_predicted = input("Choose which attribute you want to predict from these attributes: stop_outcome, driver_gender, age_group, is_arrested or violation\nAttribute to be predicted: ")
+attribute_to_be_predicted = input("Choose which attribute you want to predict from these attributes: driver_gender, age_group or is_arrested\nAttribute to be predicted: ")
 
 # Check if the input is valid and extract the features and target variable
 if attribute_to_be_predicted in attribute_to_features:
